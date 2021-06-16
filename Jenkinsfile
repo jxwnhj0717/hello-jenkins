@@ -9,14 +9,13 @@ pipeline {
     stages {
         stage('build') {
           steps {
-            echo "container id: ${Container.id}"
             sh 'gradle build -i'
+            sh 'ls build/test-reports/test'
           }
         }
     }
     post {
         always {
-            echo "container id: ${Container.id}"
             junit 'build/test-reports/**/*.xml'
         }
     }
