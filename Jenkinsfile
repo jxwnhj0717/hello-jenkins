@@ -10,12 +10,12 @@ pipeline {
         stage('build') {
           steps {
             sh 'gradle build -i'
-            sh 'ls build/test-results/test'
           }
         }
     }
     post {
         always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
             junit 'build/test-results/**/*.xml'
         }
     }
