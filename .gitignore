@@ -26,6 +26,7 @@ hs_err_pid*
 gradle
 gradlew*
 .idea
+build
 */build
 logs
 *.log
