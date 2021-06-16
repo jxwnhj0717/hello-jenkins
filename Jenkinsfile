@@ -10,13 +10,13 @@ pipeline {
         stage('build') {
           steps {
             sh 'gradle build -i'
-            sh 'ls build/test-reports/test'
+            sh 'ls build/test-results/test'
           }
         }
     }
     post {
         always {
-            junit 'build/test-reports/**/*.xml'
+            junit 'build/test-results/**/*.xml'
         }
     }
 }
