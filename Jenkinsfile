@@ -14,6 +14,7 @@ pipeline {
             }
             steps {
                 sh 'gradle -i build'
+                sh 'ls build/libs'
                 sh 'ls build/test-results/test'
                 stash includes: 'build/libs/*.jar', name: 'app'
             }
