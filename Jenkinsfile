@@ -13,6 +13,8 @@ pipeline {
             }
             steps {
                 sh 'gradle build -i'
+                sh 'pwd'
+                sh 'ls build'
                 sh 'cp build/libs/**/*.jar /tmp/jenkins/hello-jenkins'
             }
             post {
