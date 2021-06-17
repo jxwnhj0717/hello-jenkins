@@ -4,17 +4,11 @@ pipeline {
         PROJECT_NAME = 'hello-jenkins'
     }
     stages {
-        stage('初始化') {
-            agent any
-            steps {
-                sh 'mkdir -p /tmp/jenkins/hello-jenkins'
-            }
-        }
         stage('构建') {
             agent {
                 docker {
                     image 'gradle:7.0.2-jdk8-hotspot'
-                    args '-v gradle_home:/home/gradle/.gradle -v /tmp/jenkins/hello-jenkins:/tmp/jenkins/hello-jenkins'
+                    args '-v gradle_home:/home/gradle/.gradle'
                 }
             }
             steps {
@@ -23,19 +17,15 @@ pipeline {
                 sh 'ls build/libs'
                 sh 'ls build/test-results'
                 sh 'ls build/test-results/test'
-                sh 'cp build/libs/*.jar /tmp/jenkins/hello-jenkins'
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
-                    junit 'build/test-results/test/*.xml'
-                }
+                stash includes: 'build/libs/*.jar', name: 'app'
             }
         }
         stage('构建镜像') {
             agent any
             steps {
-                sh 'ls /tmp/jenkins/hello-jenkins'
+                unstash 'app'
+                sh 'pwd'
+                sh 'ls -R'
             }
         }
     }
