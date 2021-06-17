@@ -1,15 +1,16 @@
 pipeline {
-    agent {
-        docker {
-            image 'gradle:7.0.2-jdk8-hotspot'
-            args '-v gradle_home:/home/gradle/.gradle'
-        }
-    }
+    agent none
     environment {
         PROJECT_NAME = 'hello-jenkins'
     }
     stages {
         stage('构建项目') {
+            agent {
+                docker {
+                    image 'gradle:7.0.2-jdk8-hotspot'
+                    args '-v gradle_home:/home/gradle/.gradle'
+                }
+            }
             steps {
                 sh 'gradle --build-cache -i build'
                 sh 'pwd'
@@ -20,6 +21,7 @@ pipeline {
             }
         }
         stage('构建并注册镜像') {
+            agent any
             steps {
                 unstash 'app'
                 script {
