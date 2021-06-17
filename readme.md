@@ -12,9 +12,19 @@
 3. docker.withRegistry()向Docker Registry注册镜像，默认注册到https://hub.docker.com/ ，registryCredential配置访问Registry的用户名密码。
 
 ## 问题
-1. jenkins只支持通过https访问github，从腾讯云节点拉取源码时失败概率非常大。
-2. junit不配置skipPublishingChecks=true，活动中看不到测试记录。
+1. 通过windows10 + wsl + Docker Desktop + Docker Jenkins的方式部署，会导致vmmem占用4G+的内存，通过腾讯云Linux主机 + Docker Jenkins，只需要占用1G内存。
+2. jenkins只支持通过https访问github，从腾讯云节点拉取源码时失败概率非常大。
+3. junit不配置skipPublishingChecks=true，活动中看不到测试记录。
 
 ## 参考
-+ https://www.jenkins.io/doc/book/pipeline/docker/
-+ https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow
++ [以Docker的方式安装Jenkins](https://www.jenkins.io/doc/book/installing/docker/)
++ [在pipeline中使用Docker-1](https://www.jenkins.io/zh/doc/book/pipeline/docker/)
++ [在pipeline中使用Docker-2](https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow)
+
+## 延伸
+1. 单元测试多语言支持。比如用python编写excel配置表的测试用例，能否收集到结果。
+
+## 其他
++ 安装docker registry：docker run -d -p 5000:5000 --name registry registry:2
+
++ 安装docker registry ui：docker run -d -p 5001:80 joxit/docker-registry-ui
