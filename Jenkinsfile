@@ -12,7 +12,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'gradle --build-cache -i clean build'
+                sh 'gradle --build-cache -i build'
                 sh 'pwd'
                 sh 'ls build/libs'
                 sh 'ls build/test-results'
