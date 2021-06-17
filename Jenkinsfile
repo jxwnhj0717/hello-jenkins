@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     environment {
         PROJECT_NAME = 'hello-jenkins'
     }
@@ -23,6 +23,7 @@ pipeline {
             }
         }
         stage('构建镜像') {
+            agent any
             steps {
                 sh 'ls /tmp/jenkins/hello-jenkins'
             }
