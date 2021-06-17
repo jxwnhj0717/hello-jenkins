@@ -7,7 +7,7 @@ pipeline {
         stage('初始化') {
             agent any
             steps {
-                sh 'mdkir -p /tmp/jenkins/hello-jenkins'
+                sh 'mkdir -p /tmp/jenkins/hello-jenkins'
             }
         }
         stage('构建') {
