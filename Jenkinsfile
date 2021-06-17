@@ -1,7 +1,9 @@
 pipeline {
     agent none
     environment {
-        PROJECT_NAME = 'hello-jenkins'
+        registry = "jxwnhj0717/hello-jenkins"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
     }
     stages {
         stage('构建项目') {
@@ -25,8 +27,8 @@ pipeline {
             steps {
                 unstash 'app'
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'dockerhub') {
-                      docker.build("jxwnhj0717/hello-jenkins", "-f jenkins/Dockerfile build").push('latest')
+                    docker.withRegistry('', registryCredential) {
+                      docker.build(registry, "-f jenkins/Dockerfile build").push('latest')
                     }
                 }
                 sh 'docker images'
