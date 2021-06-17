@@ -3,7 +3,6 @@ pipeline {
     environment {
         registry = "jxwnhj0717/hello-jenkins"
         registryCredential = 'dockerhub'
-        dockerImage = ''
     }
     stages {
         stage('构建项目') {
@@ -15,11 +14,10 @@ pipeline {
             }
             steps {
                 sh 'gradle --build-cache -i build'
-                sh 'pwd'
-                sh 'ls build/libs'
-                sh 'ls build/test-results'
                 sh 'ls build/test-results/test'
                 stash includes: 'build/libs/*.jar', name: 'app'
+                junit 'build/test-results/test/*.xml'
+                archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
         }
         stage('构建并注册镜像') {
