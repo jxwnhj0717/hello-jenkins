@@ -59,7 +59,7 @@ public class UserControllerTest {
         retUser.setAge(100);
         restTemplate.put(uri, retUser);
         ResponseEntity<User> changedUserEntity = restTemplate.getForEntity(uri + "/" + retUser.getId(), User.class);
-        assertThat(changedUserEntity.getBody().getAge()).isEqualTo(1000);
+        assertThat(changedUserEntity.getBody().getAge()).isEqualTo(100);
     }
 
 
