@@ -15,12 +15,14 @@ pipeline {
                 sh 'gradle --build-cache -i clean build'
                 sh 'pwd'
                 sh 'ls build/libs'
-                sh 'cp build/libs/**/*.jar /tmp/jenkins/hello-jenkins'
+                sh 'ls build/test-results'
+                sh 'ls build/test-results/test'
+                sh 'cp build/libs/*.jar /tmp/jenkins/hello-jenkins'
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-                    junit 'build/test-results/**/*.xml'
+                    archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+                    //junit 'build/test-results/**/*.xml'
                 }
             }
         }
