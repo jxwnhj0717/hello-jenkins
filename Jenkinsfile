@@ -26,6 +26,10 @@ pipeline {
                 unstash 'app'
                 sh 'pwd'
                 sh 'ls -R'
+                script {
+                    docker.build("jxwnhj0717/hello-jenkins", "-f jenkins/Dockerfile build")
+                }
+                sh 'docker images'
             }
         }
     }
