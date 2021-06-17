@@ -12,9 +12,9 @@ pipeline {
                 }
             }
             steps {
-                sh 'gradle build -i'
+                sh 'gradle --build-cache -i clean build'
                 sh 'pwd'
-                sh 'ls build'
+                sh 'ls build/libs'
                 sh 'cp build/libs/**/*.jar /tmp/jenkins/hello-jenkins'
             }
             post {
