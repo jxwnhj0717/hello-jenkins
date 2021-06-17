@@ -16,8 +16,12 @@ pipeline {
                 sh 'gradle --build-cache -i build'
                 sh 'ls build/test-results/test'
                 stash includes: 'build/libs/*.jar', name: 'app'
-                junit 'build/test-results/test/*.xml'
-                archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+                    junit 'build/test-results/test/*.xml'
+                }
             }
         }
         stage('构建并注册镜像') {
